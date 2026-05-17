@@ -30,7 +30,7 @@ class Purchase(Base):
         Float,
         nullable=False
     )
-    price = Column(
+    unit_price = Column(
         Float,
         nullable=False
     )

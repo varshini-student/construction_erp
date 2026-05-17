@@ -19,5 +19,6 @@ class SupplierResponse(BaseModel):
     name: str
     contact: str
     address: Optional[str]
+    is_active: bool
     class Config:
         from_attributes = True

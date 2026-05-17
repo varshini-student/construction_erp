@@ -32,6 +32,50 @@ def get_current_stock(
         "available_stock": current_stock,
         "low_stock": low_stock
     }
+@router.get("/")
+def get_inventory(
+    db: Session = Depends(get_db)
+):
+
+    materials = db.query(
+        Material
+    ).all()
+
+    inventory = []
+
+    for material in materials:
+
+        available_stock = calculate_stock(
+            db,
+            material.id
+        )
+
+        low_stock = (
+            available_stock <
+            material.minimum_stock
+        )
+
+        inventory.append({
+            "material_id":
+                material.id,
+
+            "material_name":
+                material.name,
+
+            "unit":
+                material.unit,
+
+            "available_stock":
+                available_stock,
+
+            "minimum_stock":
+                material.minimum_stock,
+
+            "low_stock":
+                low_stock
+        })
+
+    return inventory
 # stock out / site request
 @router.post("/stock-out")
 def stock_out(

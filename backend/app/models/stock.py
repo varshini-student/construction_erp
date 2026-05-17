@@ -33,7 +33,7 @@ class StockIn(Base):
         nullable=False
     )
 
-    price = Column(
+    unit_price = Column(
         Float,
         nullable=False
     )

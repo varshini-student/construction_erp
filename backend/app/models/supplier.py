@@ -1,5 +1,6 @@
 from sqlalchemy import (
     Column,
+    Boolean,
     Integer,
     String
 )
@@ -27,3 +28,7 @@ class Supplier(Base):
         String(255),
         nullable=True
     )
+    is_active = Column(
+    Boolean,
+    default=True
+)

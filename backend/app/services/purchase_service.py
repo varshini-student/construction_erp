@@ -32,42 +32,39 @@ def create_purchase_service(db: Session, data):
         )
 
     # calculate total amount
-    total_amount = data.quantity * data.price
+    total_amount = data.quantity * data.unit_price
 
     # create purchase
     purchase = Purchase(
         material_id=data.material_id,
         supplier_id=data.supplier_id,
         quantity=data.quantity,
-        price=data.price,
+        unit_price=data.unit_price,
         total_amount=total_amount,
         status=data.status
     )
+    
+    
 
     # create stock entry
     stock = StockIn(
         material_id=data.material_id,
         quantity=data.quantity,
-        price=data.price
+        unit_price=data.unit_price
     )
 
     try:
 
         db.add(purchase)
-
         db.add(stock)
-
         db.commit()
-
         db.refresh(purchase)
-
         return purchase
-
     except Exception:
 
         db.rollback()
-
         raise HTTPException(
             status_code=500,
             detail="Purchase creation failed"
         )
+        

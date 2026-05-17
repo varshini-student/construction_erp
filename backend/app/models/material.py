@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Boolean, Column, Integer, String, Float
 from app.core.database import Base
 class Material(Base):
 
@@ -26,3 +26,7 @@ class Material(Base):
         Float,
         default=10
     )
+    is_active = Column(
+    Boolean,
+    default=True
+)

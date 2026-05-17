@@ -35,7 +35,7 @@ def dashboard(
     # total purchase expense
     total_expense = db.query(
         func.sum(
-            StockIn.quantity * StockIn.price
+            StockIn.quantity * StockIn.unit_price
         )
     ).scalar() or 0
 

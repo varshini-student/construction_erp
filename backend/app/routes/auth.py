@@ -49,8 +49,15 @@ def register(
 @router.post("/login")
 def login(
     data: OAuth2PasswordRequestForm = Depends(),
+    
     db: Session = Depends(get_db)
+    
 ):
+    print(data.username)
+    print(data.password)
+    print(len(data.password))
+
+
     user = db.query(User).filter(
         User.username == data.username
     ).first()
@@ -59,9 +66,11 @@ def login(
             status_code=401,
             detail="Invalid username"
         )
+        
     if not verify_password(
         data.password,
         user.password
+        
     ):
         raise HTTPException(
             status_code=401,
@@ -71,7 +80,13 @@ def login(
         "sub": user.username,
         "role": user.role
     })
+    
     return {
-        "access_token": token,
-        "token_type": "bearer"
+    "access_token": token,
+    "token_type": "bearer",
+    "user": {
+        "id": user.id,
+        "username": user.username,
+        "role": user.role
     }
+}
