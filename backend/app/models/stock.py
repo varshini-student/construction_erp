@@ -6,7 +6,6 @@ from sqlalchemy import (
     DateTime,
     String
 )
-
 from datetime import datetime
 
 from app.core.database import Base
