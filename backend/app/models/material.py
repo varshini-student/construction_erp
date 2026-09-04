@@ -30,3 +30,4 @@ class Material(Base):
     Boolean,
     default=True
 )
+    
